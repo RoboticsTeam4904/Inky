@@ -90,6 +90,8 @@ public class Robot extends CommandRobotBase {
     public void teleopExecute() {
         //various logging can go here
         //TODO: getAbsolutePosition() MIGHT NOT WORK OR BE IN RIGHT UNITS!
+        SmartDashboard.putNumber("navxyaw", RobotMap.Component.navx.getYaw());
+        
         SmartDashboard.putNumber("FL angle-1", RobotMap.Component.FLturnEncoder.getAbsolutePosition());
         SmartDashboard.putNumber("FL angle-2 (currentyl using 2)", RobotMap.Component.FLmodule.getAbsoluteAngle());
         
