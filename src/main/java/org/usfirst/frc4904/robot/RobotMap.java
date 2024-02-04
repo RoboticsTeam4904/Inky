@@ -9,7 +9,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 //imports for rev robotics neo 550s
 import com.revrobotics.CANSparkMax;
-
+import com.revrobotics.EncoderType;
 //import com.ctre.phoenix.motorcontrol.InvertType; //broken
 //import com.revrobotics.CANSparkMax.IdleMode; //broken
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -32,6 +32,9 @@ import org.usfirst.frc4904.standard.subsystems.chassis.SwerveDrive;
 import org.usfirst.frc4904.standard.subsystems.chassis.SwerveModule;
 
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import com.revrobotics.SparkAbsoluteEncoder;
+import com.revrobotics.SparkMaxAbsoluteEncoder;
+
 import edu.wpi.first.wpilibj.SerialPort;
 
 public class RobotMap {
@@ -150,10 +153,10 @@ public class RobotMap {
         public static SwerveModule BRmodule;
 
         //encoders are dutycycle encoders, not standard can encoders
-        public static DutyCycleEncoder FLturnEncoder;
-        public static DutyCycleEncoder FRturnEncoder;
-        public static DutyCycleEncoder BLturnEncoder;
-        public static DutyCycleEncoder BRturnEncoder;
+        public static SparkAbsoluteEncoder FLturnEncoder;
+        public static SparkAbsoluteEncoder FRturnEncoder;
+        public static SparkAbsoluteEncoder BLturnEncoder;
+        public static SparkAbsoluteEncoder BRturnEncoder;
 
         public static AHRS navx;
 
@@ -238,15 +241,14 @@ public class RobotMap {
         Translation2d locationBL = new Translation2d(-(Metrics.Chassis.TRACK_LENGTH_METERS / 2), -(Metrics.Chassis.TRACK_WIDTH_METERS / 2));
         Translation2d locationBR = new Translation2d(-(Metrics.Chassis.TRACK_LENGTH_METERS / 2), Metrics.Chassis.TRACK_WIDTH_METERS / 2);
         SwerveDriveKinematics kinematics = new SwerveDriveKinematics(locationFL, locationFR, locationBL, locationBR);
-
-        Component.FLturnEncoder = new DutyCycleEncoder(Port.PWM.ENCODER_FL); //TODO: fix port
-        Component.FRturnEncoder = new DutyCycleEncoder(Port.PWM.ENCODER_FR); //TODO: fix port
-        Component.BLturnEncoder = new DutyCycleEncoder(Port.PWM.ENCODER_BL); //TODO: fix port
-        Component.BRturnEncoder = new DutyCycleEncoder(Port.PWM.ENCODER_BR); //TODO: fix port
-        Component.FLturnEncoder.setPositionOffset(0); //TODO: fix offset
-        Component.FRturnEncoder.setPositionOffset(0); //TODO: fix offset
-        Component.BLturnEncoder.setPositionOffset(0); //TODO: fix offset
-        Component.BRturnEncoder.setPositionOffset(0); //TODO: fix offset
+        Component.FLturnEncoder = Component.FLturn.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);
+        Component.FRturnEncoder = Component.FRturn.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);
+        Component.BLturnEncoder = Component.BLturn.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);
+        Component.BRturnEncoder = Component.BRturn.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);
+        Component.FLturnEncoder.setZeroOffset(0); //TODO: fix offset
+        Component.FRturnEncoder.setZeroOffset(0);
+        Component.BLturnEncoder.setZeroOffset(0);
+        Component.BRturnEncoder.setZeroOffset(0);
 
         Component.FLmodule  = new SwerveModule(Component.FLdrive, Component.FLturn, Component.FLturnEncoder, locationFL, "FLmodule");
         Component.FRmodule = new SwerveModule(Component.FRdrive, Component.FRturn, Component.FRturnEncoder, locationFR, "FRmodule");
