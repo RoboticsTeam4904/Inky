@@ -110,7 +110,7 @@ public class RobotMap {
         public static class Drive {
             // PID constants
             // public static final double kP = 1.5;
-            public static final double kP = .04; //TODO: tune, this is from maxswerve repo but seems too low
+            public static final double kP = 1; //TODO: tune, this is from maxswerve repo but seems too low
             public static final double kI = 0;  // FIXME: tune
             public static final double kD = 0;
             // feedforward constants
@@ -126,7 +126,7 @@ public class RobotMap {
 
         public static class Turn { //TODO: tune
             // PID constants
-            public static final double kP = 1;
+            public static final double kP = 0.001;
             public static final double kI = 0;
             public static final double kD = 0;
             // feedforward constants
