@@ -126,7 +126,7 @@ public class RobotMap {
 
         public static class Turn { //TODO: tune
             // PID constants
-            public static final double kP = 0.001;
+            public static final double kP = 0.011;
             public static final double kI = 0;
             public static final double kD = 0;
             // feedforward constants
